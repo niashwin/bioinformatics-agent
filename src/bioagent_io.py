@@ -17,11 +17,9 @@ import asyncio
 import gzip
 import bz2
 import lzma
-import h5py
-import zarr
+# Core dependencies
 import sqlite3
 import json
-import yaml
 import pickle
 from pathlib import Path
 from typing import Dict, List, Any, Optional, Union, Iterator, AsyncIterator, BinaryIO, TextIO
@@ -31,23 +29,95 @@ import logging
 
 import pandas as pd
 import numpy as np
-import anndata as ad
-import scanpy as sc
 from Bio import SeqIO, Align
 from Bio.SeqRecord import SeqRecord
-import pysam
-import cyvcf2
-import pybedtools
-import loompy
-import tables
 
-# Cloud storage
-import boto3
-from google.cloud import storage as gcs
-from azure.storage.blob import BlobServiceClient
+# Optional dependencies with fallbacks
+try:
+    import yaml
+    HAS_YAML = True
+except ImportError:
+    HAS_YAML = False
+
+try:
+    import h5py
+    HAS_H5PY = True
+except ImportError:
+    HAS_H5PY = False
+
+try:
+    import zarr
+    HAS_ZARR = True
+except ImportError:
+    HAS_ZARR = False
+
+try:
+    import anndata as ad
+    HAS_ANNDATA = True
+except ImportError:
+    HAS_ANNDATA = False
+
+try:
+    import scanpy as sc
+    HAS_SCANPY = True
+except ImportError:
+    HAS_SCANPY = False
+
+try:
+    import pysam
+    HAS_PYSAM = True
+except ImportError:
+    HAS_PYSAM = False
+
+try:
+    import cyvcf2
+    HAS_CYVCF2 = True
+except ImportError:
+    HAS_CYVCF2 = False
+
+try:
+    import pybedtools
+    HAS_PYBEDTOOLS = True
+except ImportError:
+    HAS_PYBEDTOOLS = False
+
+try:
+    import loompy
+    HAS_LOOMPY = True
+except ImportError:
+    HAS_LOOMPY = False
+
+try:
+    import tables
+    HAS_TABLES = True
+except ImportError:
+    HAS_TABLES = False
+
+# Cloud storage (optional)
+try:
+    import boto3
+    HAS_BOTO3 = True
+except ImportError:
+    HAS_BOTO3 = False
+
+try:
+    from google.cloud import storage as gcs
+    HAS_GCS = True
+except ImportError:
+    HAS_GCS = False
+
+try:
+    from azure.storage.blob import BlobServiceClient
+    HAS_AZURE = True
+except ImportError:
+    HAS_AZURE = False
 
 # Async file operations
-import aiofiles
+try:
+    import aiofiles
+    HAS_AIOFILES = True
+except ImportError:
+    HAS_AIOFILES = False
 import aiohttp
 
 
@@ -334,13 +404,16 @@ class AlignmentFileHandler(BaseFileHandler):
         self.reference_fasta = reference_fasta
     
     def read_alignments(self, region: Optional[str] = None, 
-                       max_reads: Optional[int] = None) -> Iterator[pysam.AlignedSegment]:
+                       max_reads: Optional[int] = None) -> Iterator[Any]:
         """Read alignments from SAM/BAM/CRAM files"""
         mode = 'r'
         if self.format == FileFormat.BAM:
             mode = 'rb'
         elif self.format == FileFormat.CRAM:
             mode = 'rc'
+        
+        if not HAS_PYSAM:
+            raise ImportError("pysam is required for alignment file handling. Install with: pip install pysam")
         
         with pysam.AlignmentFile(str(self.file_path), mode, 
                                reference_filename=self.reference_fasta) as samfile:
@@ -401,8 +474,11 @@ class VariantFileHandler(BaseFileHandler):
     """Handler for VCF/BCF files"""
     
     def read_variants(self, region: Optional[str] = None,
-                     max_variants: Optional[int] = None) -> Iterator[cyvcf2.Variant]:
+                     max_variants: Optional[int] = None) -> Iterator[Any]:
         """Read variants from VCF/BCF files"""
+        if not HAS_CYVCF2:
+            raise ImportError("cyvcf2 is required for variant file handling. Install with: pip install cyvcf2")
+        
         vcf = cyvcf2.VCF(str(self.file_path))
         
         iterator = vcf(region) if region else vcf
@@ -541,9 +617,11 @@ class ExpressionDataHandler(BaseFileHandler):
 class SingleCellDataHandler(BaseFileHandler):
     """Handler for single-cell data formats"""
     
-    def read_single_cell_data(self, **kwargs) -> ad.AnnData:
+    def read_single_cell_data(self, **kwargs) -> Any:
         """Read single-cell data from various formats"""
         if self.format == FileFormat.H5AD:
+            if not HAS_ANNDATA:
+                raise ImportError("anndata is required for H5AD files. Install with: pip install anndata")
             return ad.read_h5ad(self.file_path, **kwargs)
         elif self.format == FileFormat.LOOM:
             return ad.read_loom(self.file_path, **kwargs)
@@ -557,7 +635,7 @@ class SingleCellDataHandler(BaseFileHandler):
         else:
             raise ValueError(f"Unsupported format for single-cell data: {self.format}")
     
-    def write_single_cell_data(self, adata: ad.AnnData, **kwargs):
+    def write_single_cell_data(self, adata: Any, **kwargs):
         """Write single-cell data to file"""
         if self.format == FileFormat.H5AD:
             adata.write_h5ad(self.file_path, **kwargs)

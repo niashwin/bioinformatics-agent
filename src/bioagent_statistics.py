@@ -19,7 +19,13 @@ import scipy.stats as stats
 from scipy.spatial.distance import pdist, squareform
 from scipy.cluster.hierarchy import linkage, dendrogram
 from sklearn.decomposition import PCA, FastICA
-from sklearn.manifold import TSNE, UMAP
+from sklearn.manifold import TSNE
+# UMAP is not in sklearn, it's a separate package
+try:
+    from umap import UMAP
+    HAS_UMAP = True
+except ImportError:
+    HAS_UMAP = False
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, RobustScaler
 from sklearn.cluster import KMeans, DBSCAN, AgglomerativeClustering
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
@@ -29,7 +35,11 @@ from sklearn.model_selection import cross_val_score, GridSearchCV
 import statsmodels.api as sm
 from statsmodels.stats.multitest import multipletests
 from statsmodels.stats.power import ttest_power
-import pingouin as pg
+try:
+    import pingouin as pg
+    HAS_PINGOUIN = True
+except ImportError:
+    HAS_PINGOUIN = False
 import seaborn as sns
 import matplotlib.pyplot as plt
 from typing import Dict, List, Any, Optional, Tuple, Union
@@ -114,9 +124,9 @@ class DifferentialExpressionResult:
     gene_id: str
     base_mean: float
     log2_fold_change: float
-    log2_fold_change_se: Optional[float] = None
     p_value: float
     adjusted_p_value: float
+    log2_fold_change_se: Optional[float] = None
     stat: Optional[float] = None
     method: str = "unknown"
 
