@@ -6,46 +6,28 @@ matplotlib>=3.4.0
 seaborn>=0.11.0
 scikit-learn>=1.0.0
 
+# Essential build tools
+setuptools>=65.0.0
+wheel>=0.37.0
+
 # Statistical analysis
 statsmodels>=0.13.0
 pingouin>=0.5.0  # Statistical tests
-pydeseq2>=0.3.0  # DESeq2 implementation in Python
 
-# Single-cell RNA-seq analysis
+# Single-cell RNA-seq analysis (optional components)
 scanpy>=1.9.0  # Single-cell analysis toolkit
 anndata>=0.8.0  # Annotated data structures
 umap-learn>=0.5.3  # UMAP dimensionality reduction
-leidenalg>=0.9.0  # Leiden clustering algorithm
-louvain>=0.8.0  # Louvain clustering
-scrublet>=0.2.3  # Doublet detection
-scvelo>=0.2.5  # RNA velocity analysis
-cellrank>=1.5.0  # Trajectory analysis
-squidpy>=1.2.0  # Spatial transcriptomics
-scvi-tools>=0.20.0  # Variational autoencoders for single-cell
-harmonypy>=0.0.9  # Batch correction
 
 # Bioinformatics specific
 biopython>=1.79
 networkx>=2.6
 pysam>=0.19.0  # For SAM/BAM file handling
-pyvcf3>=1.0.3   # For VCF file handling
-dendropy>=4.5.0  # For phylogenetics
-ete3>=3.1.2    # For tree visualization
-pybedtools>=0.9.0  # Genomic interval operations
-cyvcf2>=0.30.0  # Fast VCF parsing
-
-# Quality control and preprocessing
-multiqc>=1.12  # MultiQC reports
-cutadapt>=4.0  # Adapter trimming
-fastqc>=0.12.0  # Quality control
 
 # Database connectivity
 requests>=2.28.0
 urllib3>=1.26.0
-ftplib  # Built-in
-sqlite3  # Built-in
 psycopg2-binary>=2.9.0  # PostgreSQL
-pymongo>=4.0.0  # MongoDB
 
 # File formats and compression
 h5py>=3.7.0  # HDF5 files
