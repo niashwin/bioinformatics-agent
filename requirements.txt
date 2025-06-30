@@ -6,34 +6,117 @@ matplotlib>=3.4.0
 seaborn>=0.11.0
 scikit-learn>=1.0.0
 
+# Statistical analysis
+statsmodels>=0.13.0
+pingouin>=0.5.0  # Statistical tests
+pydeseq2>=0.3.0  # DESeq2 implementation in Python
+
+# Single-cell RNA-seq analysis
+scanpy>=1.9.0  # Single-cell analysis toolkit
+anndata>=0.8.0  # Annotated data structures
+umap-learn>=0.5.3  # UMAP dimensionality reduction
+leidenalg>=0.9.0  # Leiden clustering algorithm
+louvain>=0.8.0  # Louvain clustering
+scrublet>=0.2.3  # Doublet detection
+scvelo>=0.2.5  # RNA velocity analysis
+cellrank>=1.5.0  # Trajectory analysis
+squidpy>=1.2.0  # Spatial transcriptomics
+scvi-tools>=0.20.0  # Variational autoencoders for single-cell
+harmonypy>=0.0.9  # Batch correction
+
 # Bioinformatics specific
 biopython>=1.79
-statsmodels>=0.13.0
 networkx>=2.6
+pysam>=0.19.0  # For SAM/BAM file handling
+pyvcf3>=1.0.3   # For VCF file handling
+dendropy>=4.5.0  # For phylogenetics
+ete3>=3.1.2    # For tree visualization
+pybedtools>=0.9.0  # Genomic interval operations
+cyvcf2>=0.30.0  # Fast VCF parsing
+
+# Quality control and preprocessing
+multiqc>=1.12  # MultiQC reports
+cutadapt>=4.0  # Adapter trimming
+fastqc>=0.12.0  # Quality control
+
+# Database connectivity
+requests>=2.28.0
+urllib3>=1.26.0
+ftplib  # Built-in
+sqlite3  # Built-in
+psycopg2-binary>=2.9.0  # PostgreSQL
+pymongo>=4.0.0  # MongoDB
+
+# File formats and compression
+h5py>=3.7.0  # HDF5 files
+zarr>=2.12.0  # Zarr arrays
+loompy>=3.0.7  # Loom files
+tables>=3.7.0  # PyTables
+
+# Pathway and functional analysis
+gseapy>=1.0.0  # GSEA analysis
+goatools>=1.2.0  # GO analysis
+bioservices>=1.10.0  # Biological web services
+
+# Machine learning and deep learning
+torch>=1.12.0  # PyTorch for deep learning
+torchvision>=0.13.0
+torchaudio>=0.12.0
+tensorflow>=2.9.0  # TensorFlow
+keras>=2.9.0
+
+# Distributed computing
+dask>=2022.7.0
+distributed>=2022.7.0
+ray>=2.0.0  # Distributed ML
+
+# Cloud and containers
+boto3>=1.24.0  # AWS
+google-cloud-storage>=2.5.0  # GCP
+azure-storage-blob>=12.12.0  # Azure
+docker>=6.0.0  # Docker SDK
 
 # Async and system
-asyncio-mqtt>=0.10.0
-aiofiles>=0.7.0
+aiofiles>=0.8.0
+aiohttp>=3.8.0
+httpx>=0.23.0
 
 # Data validation and typing
-pydantic>=1.8.0
-typing-extensions>=4.0.0
+pydantic>=1.10.0
+typing-extensions>=4.3.0
 
 # Logging and utilities
 loguru>=0.6.0
 python-dateutil>=2.8.0
-pathlib>=1.0.0
+tqdm>=4.64.0  # Progress bars
+rich>=12.5.0  # Rich terminal output
+typer>=0.6.0  # CLI framework
 
-# Optional bioinformatics tools (for advanced features)
-# Uncomment if you want to use these tools
-# pysam>=0.19.0  # For SAM/BAM file handling
-# pyvcf>=0.6.8   # For VCF file handling
-# dendropy>=4.5.0  # For phylogenetics
-# ete3>=3.1.2    # For tree visualization
+# Notebook and visualization
+jupyter>=1.0.0
+plotly>=5.10.0
+bokeh>=2.4.0
+altair>=4.2.0
 
-# Development dependencies (optional)
-pytest>=6.2.0
-pytest-asyncio>=0.18.0
-black>=21.0.0
-flake8>=4.0.0
-mypy>=0.910
+# Performance and optimization
+numba>=0.56.0  # JIT compilation
+cython>=0.29.0  # C extensions
+polars>=0.14.0  # Fast DataFrame library
+
+# Configuration and environment
+python-dotenv>=0.20.0
+configparser>=5.3.0
+pyyaml>=6.0
+
+# Testing and development
+pytest>=7.1.0
+pytest-asyncio>=0.19.0
+pytest-cov>=3.0.0
+black>=22.6.0
+flake8>=5.0.0
+mypy>=0.971
+pre-commit>=2.20.0
+
+# Documentation
+sphinx>=5.1.0
+myst-parser>=0.18.0
