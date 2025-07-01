@@ -39,8 +39,23 @@ except ImportError:
 
 # Bioinformatics libraries
 from Bio import SeqIO
-from Bio.SeqUtils import GC
-import pysam
+try:
+    from Bio.SeqUtils import gc_fraction as GC  # Updated BioPython import
+except ImportError:
+    try:
+        from Bio.SeqUtils import GC  # Older BioPython versions
+    except ImportError:
+        def GC(seq):
+            """Fallback GC content calculation"""
+            seq_str = str(seq).upper()
+            gc_count = seq_str.count('G') + seq_str.count('C')
+            return (gc_count / len(seq_str)) * 100 if len(seq_str) > 0 else 0
+
+try:
+    import pysam
+    HAS_PYSAM = True
+except ImportError:
+    HAS_PYSAM = False
 
 from bioagent_architecture import BioinformaticsTool, BioToolResult, DataType, DataMetadata
 from bioagent_io import SequenceFileHandler, ExpressionDataHandler

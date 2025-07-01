@@ -2,19 +2,18 @@
 
 ## 🚀 Installation & Setup
 
-### Option 1: Minimal Installation (Recommended)
+### Standard Installation (Recommended)
+```bash
+git clone https://github.com/niashwin/bioinformatics-agent.git
+cd bioinformatics-agent
+pip install -r requirements.txt
+```
+
+### Minimal Installation (Basic functionality only)
 ```bash
 git clone https://github.com/niashwin/bioinformatics-agent.git
 cd bioinformatics-agent
 pip install -r requirements-minimal.txt
-```
-
-### Option 2: Full Installation
-```bash
-git clone https://github.com/niashwin/bioinformatics-agent.git
-cd bioinformatics-agent
-pip install setuptools>=65.0.0 wheel>=0.37.0
-pip install -r requirements.txt
 ```
 
 ## 📖 Running the Demo
@@ -42,20 +41,24 @@ python test_imports.py
 - ✅ **Clear error messages** - Helpful guidance for installing optional features
 - ✅ **Works in any environment** - Core functionality available with minimal deps
 
-## 🔧 Core vs Optional Features
+## 🔧 Standard vs Minimal Features
 
-### Core Features (Always Available)
-- BioinformaticsAgent architecture
-- Basic tool framework 
-- Pipeline orchestration
-- File I/O for common formats
-- Statistical analysis
+### Standard Installation (Full Feature Set)
+- ✅ Complete BioinformaticsAgent functionality
+- ✅ Single-cell RNA-seq analysis (scanpy, anndata, umap-learn)
+- ✅ Advanced statistical analysis (pydeseq2, pingouin)  
+- ✅ File format support (h5py, zarr, pysam, cyvcf2)
+- ✅ Quality control tools (multiqc, fastqc)
+- ✅ Machine learning & deep learning (torch, tensorflow)
+- ✅ Cloud storage integration (boto3, google-cloud-storage)
+- ✅ Pathway analysis (gseapy, goatools)
 
-### Optional Features (Install as needed)
-- Single-cell analysis: `pip install scanpy anndata`
-- Advanced file formats: `pip install h5py zarr pysam cyvcf2`
-- Cloud storage: `pip install boto3 google-cloud-storage`
-- Specialized stats: `pip install pingouin pydeseq2`
+### Minimal Installation (Core Features Only)
+- ✅ Basic BioinformaticsAgent architecture
+- ✅ Core tool framework 
+- ✅ Pipeline orchestration
+- ✅ Basic file I/O and statistical analysis
+- ⚠️ Limited functionality for specialized analyses
 
 ## 🎯 Usage Example
 

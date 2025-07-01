@@ -21,22 +21,25 @@ from typing import Dict, List, Any, Optional
 # Add parent directory to path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+# Add src directory to path as well
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
+
 # Import BioinformaticsAgent modules
-from src.bioagent_architecture import (
+from bioagent_architecture import (
     BioinformaticsAgent, DataMetadata, DataType, AnalysisTask, ReasoningType
 )
-from src.bioagent_tools import get_all_bioinformatics_tools
-from src.bioagent_io import (
+from bioagent_tools import get_all_bioinformatics_tools
+from bioagent_io import (
     SequenceFileHandler, ExpressionDataHandler, VariantFileHandler
 )
-from src.bioagent_statistics import DifferentialExpressionAnalyzer
-from src.bioagent_databases import BiologicalDatabaseManager
-from src.bioagent_single_cell import SingleCellPreprocessor, SingleCellAnalyzer
-from src.bioagent_variant_calling import VariantCallingPipeline, VariantAnnotator
-from src.bioagent_alignment import ShortReadAligner, RNASeqAligner, MultipleSequenceAligner
-from src.bioagent_pathway_analysis import PathwayEnrichmentAnalyzer
-from src.bioagent_quality_control import QualityControlPipeline
-from src.bioagent_pipeline import BioinformaticsPipeline, PipelineManager
+from bioagent_statistics import DifferentialExpressionAnalyzer
+from bioagent_databases import BiologicalDatabaseManager
+from bioagent_single_cell import SingleCellPreprocessor, SingleCellAnalyzer
+from bioagent_variant_calling import VariantCallingPipeline, VariantAnnotator
+from bioagent_alignment import ShortReadAligner, RNASeqAligner, MultipleSequenceAligner
+from bioagent_pathway_analysis import PathwayEnrichmentAnalyzer
+from bioagent_quality_control import QualityControlPipeline
+from bioagent_pipeline import BioinformaticsPipeline, PipelineManager
 
 # HTML report template
 HTML_TEMPLATE = """
@@ -272,15 +275,15 @@ MADSNGTITVEELVADNLEGTLEGDQRVTYTNASNNLQRVASVGIQNVDCKQLEQANAQ
             f.write(protein_content)
         
         # 6. Create single-cell expression matrix
-        sc_genes = [f"Gene_{i}" for i in range(500)]
-        sc_cells = [f"Cell_{i}" for i in range(200)]
+        sc_genes = [f"Gene_{i}" for i in range(100)]
+        sc_cells = [f"Cell_{i}" for i in range(500)]
         
         # Simulate different cell types
-        cell_type1 = np.random.poisson(2, size=(250, 100))
-        cell_type2 = np.random.poisson(5, size=(250, 100))
-        sc_data = np.vstack([cell_type1, cell_type2]).T
+        cell_type1 = np.random.poisson(2, size=(100, 250))
+        cell_type2 = np.random.poisson(5, size=(100, 250))
+        sc_data = np.hstack([cell_type1, cell_type2])
         
-        sc_df = pd.DataFrame(sc_data, index=sc_genes[:500], columns=sc_cells)
+        sc_df = pd.DataFrame(sc_data, index=sc_genes, columns=sc_cells)
         sc_df.to_csv(self.example_data_dir / "single_cell_matrix.csv")
         
         print("Example datasets prepared!")

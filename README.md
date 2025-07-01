@@ -45,18 +45,32 @@ BioinformaticsAgent is a sophisticated AI-powered system designed specifically f
 - Required Python packages (see `requirements.txt`)
 - Optional: Bioinformatics tools (BLAST, muscle, etc.)
 
-### Basic Installation
+### Standard Installation (Recommended)
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/bioinformatics-agent.git
+git clone https://github.com/niashwin/bioinformatics-agent.git
 cd bioinformatics-agent
 
-# Install dependencies
+# Install all dependencies for full functionality
 pip install -r requirements.txt
 
-# Run example
-python bioagent-example.py
+# Run interactive demo
+jupyter notebook bioinformatics_agent_demo.ipynb
+```
+
+### Minimal Installation (Basic features only)
+
+```bash
+# Clone the repository
+git clone https://github.com/niashwin/bioinformatics-agent.git
+cd bioinformatics-agent
+
+# Install minimal dependencies
+pip install -r requirements-minimal.txt
+
+# Test basic functionality
+python test_imports.py
 ```
 
 ### Development Installation
@@ -68,7 +82,7 @@ source bioagent-env/bin/activate  # On Windows: bioagent-env\Scripts\activate
 
 # Install in development mode
 pip install -e .
-pip install -r requirements-dev.txt
+pip install -r requirements.txt
 ```
 
 ## 🚀 Quick Start
